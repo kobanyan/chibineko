@@ -1,0 +1,16 @@
+---
+  chibineko_source_directory: "/home/{{ ansible_user_id }}/src/chibineko"
+  chibineko_ruby_version: "2.3.0"
+  chibineko_mailer_development_default_url_options_host: "localhost"
+  chibineko_mailer_development_default_url_options_port: 3000
+  chibineko_mailer_test_default_url_options_host: "localhost"
+  chibineko_mailer_test_default_url_options_port: 3000
+  chibineko_mailer_production_default_url_options_host: "example.com"
+  chibineko_mailer_production_delivery_method: :smtp
+  chibineko_mailer_production_smtp_settings_enable_starttls_auto: true
+  chibineko_mailer_production_smtp_settings_address: "smtp.gmail.com"
+  chibineko_mailer_production_smtp_settings_port: 587
+  chibineko_mailer_production_smtp_settings_domain: "example.com"
+  chibineko_mailer_production_smtp_settings_authentication: "plain"
+  chibineko_mailer_production_smtp_settings_user_name: "<yourname>@gmail.com"
+  chibineko_mailer_production_smtp_settings_password: "<yourpassword>"

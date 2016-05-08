@@ -1,0 +1,44 @@
+---
+  - name: Add apt key
+    shell: curl -sSL https://rvm.io/mpapis.asc | gpg --import -
+  - name: Install rvm
+    shell: curl -sSL https://get.rvm.io | bash -s stable
+  - name: Install packages
+    become: yes
+    become_method: sudo
+    apt:
+      name: "{{ item }}"
+    with_items:
+      - nodejs
+      - git
+      - libpq-dev # for gem install pg
+      - build-essential # for gem install nokogiri
+      - patch # for gem install nokogiri
+  - name: Install ruby
+    shell: "/bin/bash -lc 'rvm install {{ chibineko_ruby_version }} && rvm --default {{ chibineko_ruby_version }}'"
+  - name: Install rails
+    shell: /bin/bash -lc "gem install rails"
+  - name: Make source directory
+    file:
+      path: "{{ chibineko_source_directory }}"
+      state: directory
+  - name: Clone chibineko
+    git:
+      repo: https://github.com/tabbyz/chibineko.git
+      dest: "{{ chibineko_source_directory }}"
+  - name: Install gems
+    shell: /bin/bash -lc "bundle install"
+    args:
+      chdir: "{{ chibineko_source_directory }}"
+  - name: Congifure email
+    template:
+      src: ./mailer.yml
+      dest: "{{ chibineko_source_directory }}/config/mailer.yml"
+  - name: Setup db
+    shell: /bin/bash -lc "rake db:migrate && rake db:seed"
+    args:
+      chdir: "{{ chibineko_source_directory }}"
+  - name: Run chibineko
+    shell: /bin/bash -lc "rails server -d -b 0.0.0.0"
+    args:
+      chdir: "{{ chibineko_source_directory }}"

@@ -1,0 +1,24 @@
+defaults: &defaults
+
+development:
+  default_url_options:
+    host: "{{ chibineko_mailer_development_default_url_options_host }}"
+    port: "{{ chibineko_mailer_development_default_url_options_port }}"
+
+test:
+  default_url_options:
+    host: "{{ chibineko_mailer_test_default_url_options_host }}"
+    port: "{{ chibineko_mailer_test_default_url_options_port }}"
+
+production:
+  default_url_options:
+    host: "{{ chibineko_mailer_production_default_url_options_host }}"
+  delivery_method: "{{ chibineko_mailer_production_delivery_method }}"
+  smtp_settings:
+    enable_starttls_auto: "{{ chibineko_mailer_production_smtp_settings_enable_starttls_auto }}"
+    address: "{{ chibineko_mailer_production_smtp_settings_address }}"
+    port: "{{ chibineko_mailer_production_smtp_settings_port }}"
+    domain: "{{ chibineko_mailer_production_smtp_settings_domain }}"
+    authentication: "{{ chibineko_mailer_production_smtp_settings_authentication }}"
+    user_name: "{{ chibineko_mailer_production_smtp_settings_user_name }}"
+    password: "{{ chibineko_mailer_production_smtp_settings_password }}"
